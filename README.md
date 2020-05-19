@@ -15,5 +15,5 @@ The Fourier transform can be formally defined as an improper Riemann integral, m
 The fast Fourier transform (FFT) is an algorithm for computing the DFT. 
 ### Formule
 
-\sum_{i=1}^{10} t_i
+$\sum_{i=1}^{10} t_i
 
