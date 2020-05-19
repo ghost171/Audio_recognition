@@ -30,3 +30,16 @@ This method (and the general idea of an FFT) was popularized by a publication of
 
 The best known use of the Cooley–Tukey algorithm is to divide the transform into two pieces of size N/2 at each step, and is therefore limited to power-of-two sizes, but any factorization can be used in general (as was known to both Gauss and Cooley/Tukey). These are called the radix-2 and mixed-radix cases, respectively (and other variants such as the split-radix FFT have their own names as well). Although the basic idea is recursive, most traditional implementations rearrange the algorithm to avoid explicit recursion. Also, because the Cooley–Tukey algorithm breaks the DFT into smaller DFTs, it can be combined arbitrarily with any other algorithm for the DFT, such as those described below. 
 ![image](https://wikimedia.org/api/rest_v1/media/math/render/svg/350d2578274aae20d7db9bcccb44f1c49c8a889d)
+## split_by_vad.cpp
+#### What does this program?
+This program supposed to dividing audio record ro few record with human voice.
+It used to dividing audio record with five digits in it to 5 records and put it to the appropriate in splitted/ directories.
+#### functions
+    def print_with_timeline(data, single_duration, units_name, row_limit):
+    def get_segment_energy(data, start, end):
+    def get_segments_energy(data, segment_duration):
+    def get_vad_mask(data, threshold):
+    def sec2samples(seconds, sample_rate):
+    class Segment:
+    def print_segments(segments, single_duration, units_name):
+    def mask_compress(data):    
