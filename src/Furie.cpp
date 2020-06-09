@@ -188,72 +188,68 @@ std::vector<Complex> f2s(const std::vector<Complex> &f) {
     for (int i = 0)
 }*/
 
-void fft_rec(std::vector<Complex> &f) {
-    int n = f.size();
+void fft_rec(std::vector<Complex> &vec_f) {
+    int n = vec_f.size(), k = n / 2;
     if (n == 1) {
         return;
     }
     std::vector<Complex> even, odd;
-    even.resize(n / 2);
-    odd.resize(n / 2);
-    for (int i = 0; i < n / 2; i++) {
-        even[i] = f[i * 2];
-        odd[i] = f[(i * 2) + 1];
+    even.resize(k);
+    odd.resize(k);
+    for (int i = 0; i < k; i++) {
+        even[i] = vec_f[i << 1];
+        odd[i] = vec_f[(i << 1) + 1];
     }
     fft_rec(even);
     fft_rec(odd);
-    for (int i = 0; i < n / 2; i++) {
-        f[i] = even[i] + (odd[i] ^ (-2 * M_PI * i / n));
-        f[i + n / 2] = even[i] - (odd[i] ^ (-2 * M_PI * i / n));
+    for (int i = 0; i < k; i++) {
+        vec_f[i] = even[i] + (odd[i] ^ (-2 * M_PI * i / n));
+        vec_f[i + k] = even[i] - (odd[i] ^ (-2 * M_PI * i / n));
     }
 }
 
-void fft(std::vector<Complex> &f) {
-    int size = f.size();
-    int n = 1;
+void fft(std::vector<Complex> &vec_f) {
+    int size = vec_f.size(), n = 1;
     while (size > n) {
         n *= 2;
     }
-    f.resize(n);
+    vec_f.resize(n);
     for (int i = size; i < n; i++) {
-        f[i] = 0;
+        vec_f[i] = 0;
     }
-    fft_rec(f);
+    fft_rec(vec_f);
 }
 
-void fft_rec_i(std::vector<Complex> &f) {
-    int n = f.size();
+void fft_rec_i(std::vector<Complex> &vec_f) {
+    int n = vec_f.size(), k = n / 2;
     if (n == 1) {
         return;
     }
     std::vector<Complex> even, odd;
-    even.resize(n / 2);
-    odd.resize(n / 2);
-    for (int i = 0; i < n / 2; i++) {
-        even[i] = f[i * 2];
-        odd[i] = f[(i * 2) + 1];
+    even.resize(k);
+    odd.resize(k);
+    for (int i = 0; i < k; i++) {
+        even[i] = vec_f[i * 2];
+        odd[i] = vec_f[(i * 2) + 1];
     }
     fft_rec(even);
     fft_rec(odd);
-    for (int i = 0; i <  n / 2; i++) {
-        f[i + n / 2] = even[i] + (odd[i] ^ (2 * M_PI * i / n));
-        f[i] = even[i] - (odd[i] ^ (2 * M_PI * i / n));
+    for (int i = 0; i < k; i++) {
+        vec_f[i] = even[i] + (odd[i] ^ (2 * M_PI * i / n));
+        vec_f[i + k] = even[i] - (odd[i] ^ (2 * M_PI * i / n));
     }
 }
 
-void fft_i(std::vector<Complex> &f) {
-    int size = f.size(), n = 1;
+void fft_i(std::vector<Complex> &vec_f) {
+    int size = vec_f.size(), n = 1;
     while (size > n) {
         n *= 2;
     }
-    f.resize(n);
+    vec_f.resize(n);
     for (int i = size; i < n; i++) {
-        f[i] = 0;
+        vec_f[i] = 0;
     }
-    fft_rec_i(f);
-    for(auto &el: f) {
-        el = el / n;
-    }
+    fft_rec(vec_f);
 }
 
 std::vector <Complex> s2f(const std::vector<Complex> &c) {
@@ -270,36 +266,34 @@ std::vector <Complex> s2f(const std::vector<Complex> &c) {
 
 int main() {
 	Complex number;
-	std::vector<Complex> f = {1 , 6 , 2 , 5 , 3 , 4}, Spectr, check;
+	std::vector<Complex> vec_f = {1 , 6 , 2 , 5 , 3 , 4}, Spectr, vec_check;
     cout << "Start F:" << endl;
-	for (int i = 0; i < f.size(); i++) {
-		cout << f[i] << endl;
+	for (auto &num: vec_f) {
+		cout << num << endl;
 	}
-	Spectr = f2s(f);
-	check = s2f(Spectr);
+	Spectr = f2s(vec_f);
+	vec_check = s2f(Spectr);
     cout << "SPECTR of F with DFT:" << endl;
-	for (int i = 0; i < Spectr.size(); i++) {
-
-		cout << Spectr[i] << endl;;
+	for (auto &num: Spectr) {
+		cout << num << endl;;
 	}
     cout << "F with DFT:" << endl;
-	for (int i = 0; i < check.size(); i++) {
-		cout << check[i] << endl;
+	for (auto &num: vec_check) {
+		cout << num << endl;
 	}
 	cout << "SPECTR with FFT :\n";
-    int f_size = f.size();
-	fft(f);
-	for (int i = 0; i < f.size(); i++) {
-		cout << f[i] << endl;
+	fft(vec_f);
+	for (auto &num: vec_f) {
+		cout << num << endl;
 	}
-	f = s2f(f);
+	vec_f  = s2f(vec_f);
     cout << "F with FFT" << endl;
-    int n = f.size();
+    int n = vec_f.size();
     while(n & (n - 1) != 0) {
         n++;
     }
-	for (int i = 0; i < f_size; i++) {
-		cout << f[i] / n << endl;
+	for (auto &num: vec_f) {
+		cout <<  num / n << endl;;
 	}
 	return 0;
 }
