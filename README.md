@@ -34,7 +34,7 @@ The best known use of the Cooley–Tukey algorithm is to divide the transform in
 #### What does this program?
 This program supposed to dividing audio record ro few record with human voice.
 It used to dividing audio record with five digits in it to 5 records and put it to the appropriate in splitted/ directories.
-#### functions
+#### functions for vad.cpp
     def print_with_timeline(data, single_duration, units_name, row_limit):
     def get_segment_energy(data, start, end):
     def get_segments_energy(data, segment_duration):
@@ -42,4 +42,20 @@ It used to dividing audio record with five digits in it to 5 records and put it 
     def sec2samples(seconds, sample_rate):
     class Segment:
     def print_segments(segments, single_duration, units_name):
-    def mask_compress(data):    
+    def mask_compress(data):
+#### functions and methods for Furie    
+    Complex::Complex() {}
+    Complex::Complex(double Re) {}
+    Complex::Complex(double Re, double Im) {}
+    Complex Complex::operator +(const Complex &operand2) const {}
+    Complex Complex::operator -(const Complex &operand2) const {}
+    Complex Complex::operator /(double operand2) const {}
+    Complex Complex::operator *(double operand2) const {}
+    Complex Complex::operator ^(double degree) const {}
+    std::ostream &operator << (std::ostream &cout_object, const Complex operand) {}
+    std::vector<Complex> f2s(const std::vector<Complex> &f) {}
+    void fft_rec(std::vector<Complex> &vec_f) {}
+    void fft(std::vector<Complex> &vec_f) {}
+    void fft_rec_i(std::vector<Complex> &vec_f) {}
+    void fft_i(std::vector<Complex> &vec_f) {}
+    std::vector <Complex> s2f(const std::vector<Complex> &c) {}
