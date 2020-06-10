@@ -7,7 +7,7 @@ To download the program type in your terminal:
 #### For Furie:
 You can use this command for assemble and execute it:
     
-    g++ src/Furie.cpp -o Furie && ./Furie
+    g++ src/Furie.cpp -o Furie && ./Furie L.wav 0.1 0.001
 
 #### For vad:
 You can use this command for assemble and execute it:
