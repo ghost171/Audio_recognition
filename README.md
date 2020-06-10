@@ -35,14 +35,78 @@ The best known use of the Cooley–Tukey algorithm is to divide the transform in
 This program supposed to dividing audio record ro few record with human voice.
 It used to dividing audio record with five digits in it to 5 records and put it to the appropriate in splitted/ directories.
 #### functions for vad.cpp
-    def print_with_timeline(data, single_duration, units_name, row_limit):
-    def get_segment_energy(data, start, end):
-    def get_segments_energy(data, segment_duration):
-    def get_vad_mask(data, threshold):
-    def sec2samples(seconds, sample_rate):
-    class Segment:
-    def print_segments(segments, single_duration, units_name):
-    def mask_compress(data):
+    void print(const std::vector<T> &data, int limit = 0) {}
+    void print_with_timeline(const std::vector<T> &data,
+                             double single_duration,
+                             std::string units_name,
+                             int row_limit) {}
+    void print_with_colored_timeline(const std::vector<T> &data,
+                                     const std::vector<bool> &mask,
+                                     double single_duration,
+                                     std::string units_name,
+                                     int row_limit) {}
+    void print_with_timeline(const std::vector<T> &data,
+                             double single_duration,
+                             std::string units_name,
+                             int row_limit) {}
+    void print_with_colored_timeline(const std::vector<T> &data,
+                                     const std::vector<bool> &mask,
+                                     double single_duration,
+                                     std::string units_name,
+                                     int row_limit) {}
+    struct WavHeader {
+      char chunkId[4] = {'R', 'I', 'F', 'F'}; // 'RIFF'
+      unsigned int chunkSize; // file size - 8
+      char format[4] = {'W', 'A', 'V', 'E'}; // 'WAVE'
+      char subchunk1Id[4] = {'f', 'm', 't', ' '}; // 'fmt '
+      unsigned int subchunk1Size = 16; // 16 for 'pcm' format
+      unsigned short audioFormat = 1; // 1 for 'pcm' format
+      unsigned short numChannels = 1; // 1 for 'mono' format
+      unsigned int sampleRate;
+      unsigned int byteRate;
+      unsigned short blockAlign; //byte per sample (included all channels)
+      unsigned short bitsPerSample;
+      char subchunk2Id[4] = {'d', 'a', 't', 'a'}; // 'data'
+      unsigned int subchunk2Size; // byte (file size - 44)
+    };
+    int get_duration_samples(const WavHeader &header) {}
+    double get_duration_seconds(const WavHeader &header) {}
+    void print_wav_header_info(const WavHeader &header) {}
+    std::vector<short> load_wav(const std::string &wav_file_path, int *sample_rate, WavHeader *return_header) {}
+    double get_segment_energy(const std::vector<short> &data, int start, int end){}
+    std::vector<double> get_segments_energy(const std::vector<short> &data, int segment_duration) {}
+    std::vector<bool> get_vad_mask(const std::vector<double> &data, double threshold) {}
+    int sec2samples(double seconds, int sample_rate) {}
+    struct Segment {
+      int start;
+      int stop;
+    };
+    void print_segments(const std::vector<Segment> &segments,
+                        double single_duration,
+                        std::string units_name) {}
+    WavHeader getHeader(int i, std::vector<short> data, const std::vector<Segment> segments, WavHeader header_entire, int segment_duration) {}
+    std::vector<short> getData(int idx, const std::vector<short> &data, const std::vector<Segment> &segments, int sd) {}
+    int save_wav(int i, const std::vector<short> &data, const std::vector<Segment> &segments, WavHeader header, int segm_duration) {}
+    std::vector<Segment> mask_compress(const std::vector<bool> &data) {}
+    int get_duration_samples(const WavHeader &header) {}
+    double get_duration_seconds(const WavHeader &header) {}
+    void print_wav_header_info(const WavHeader &header) {}
+    std::vector<short> load_wav(const std::string &wav_file_path, int *sample_rate, WavHeader *return_header) {}
+    double get_segment_energy(const std::vector<short> &data, int start, int end) {}
+    std::vector<double> get_segments_energy(const std::vector<short> &data, int segment_duration) {}
+    std::vector<bool> get_vad_mask(const std::vector<double> &data, double threshold) {}
+    int sec2samples(double seconds, int sample_rate) {}
+    struct Segment {
+      int start;
+      int stop;
+    };
+    void print_segments(const std::vector<Segment> &segments,
+                        double single_duration,
+                        std::string units_name) {}
+    WavHeader getHeader(int i, std::vector<short> data, const std::vector<Segment> segments, WavHeader header_entire, int segment_duration) {}
+    std::vector<short> getData(int idx, const std::vector<short> &data, const std::vector<Segment> &segments, int sd) {}
+    int save_wav(int i, const std::vector<short> &data, const std::vector<Segment> &segments, WavHeader header, int segm_duration){}
+    std::vector<Segment> mask_compress(const std::vector<bool> &data) {}
 #### functions and methods for Furie    
     Complex::Complex() {}
     Complex::Complex(double Re) {}
