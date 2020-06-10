@@ -3,14 +3,24 @@
 To download the program type in your terminal:
     
     git clone https://github.com/ghost171/Audio_recognition/
+### How to execute it:
+#### For Furie:
+You can use this command for assemble and execute it:
+    
+    g++ src/Furie.cpp -o Furie && ./Furie
+
+#### For vad:
+You can use this command for assemble and execute it:
+    
+    g++ src/vad.cpp -o vad && ./vad
 ## Discrete and fast Fourier transform
 ### What do this program:
 This program used Furie transform and inverse Furie transform with Coolie-Tukey algorythm:
 For any vector in vec_f this program prints:
-1)Spectr with Furie algoritm
-2)Function with inverse Furie algoritm
-3)Spectr with Fast Furie algoritm
-4)Function with inverse Fast Furie algoritm
+1. Spectr with Furie algoritm
+2. Function with inverse Furie algoritm
+3. Spectr with Fast Furie algoritm
+4. Function with inverse Fast Furie algoritm
 ### Explaination
 In mathematics, a Fourier transform (FT) is a mathematical transform which decomposes a function (often a function of time, or a signal) into its constituent frequencies, such as the expression of a musical chord in terms of the volumes and frequencies of its constituent notes. The term Fourier transform refers to both the frequency domain representation and the mathematical operation that associates the frequency domain representation to a function of time.
 
