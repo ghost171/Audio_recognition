@@ -7,12 +7,12 @@ To download the program type in your terminal:
 #### For Furie:
 You can use this command for assemble and execute it:
     
-    g++ src/Furie.cpp -o Furie && ./Furie L.wav 0.1 0.001
+    g++ src/Furie.cpp -o Furie && ./Furie 
 
 #### For vad:
 You can use this command for assemble and execute it:
     
-    g++ src/vad.cpp -o vad && ./vad
+    g++ src/vad.cpp -o vad && ./vad L.wav 0.1 0.001
 ## Discrete and fast Fourier transform
 ### What do this program:
 This program used Furie transform and inverse Furie transform with Coolie-Tukey algorythm:
