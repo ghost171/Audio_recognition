@@ -1,5 +1,16 @@
 # Audio_recognition
+## Downloading
+To download the program type in your terminal:
+    
+    git clone https://github.com/ghost171/Audio_recognition/
 ## Discrete and fast Fourier transform
+### What do this program:
+This program used Furie transform and inverse Furie transform with Coolie-Tukey algorythm:
+For any vector in vec_f this program prints:
+1)Spectr with Furie algoritm
+2)Function with inverse Furie algoritm
+3)Spectr with Fast Furie algoritm
+4)Function with inverse Fast Furie algoritm
 ### Explaination
 In mathematics, a Fourier transform (FT) is a mathematical transform which decomposes a function (often a function of time, or a signal) into its constituent frequencies, such as the expression of a musical chord in terms of the volumes and frequencies of its constituent notes. The term Fourier transform refers to both the frequency domain representation and the mathematical operation that associates the frequency domain representation to a function of time.
 
@@ -33,8 +44,19 @@ The best known use of the Cooley–Tukey algorithm is to divide the transform in
 ## split_by_vad.cpp
 #### What does this program?
 This program supposed to dividing audio record ro few record with human voice.
-It used to dividing audio record with five digits in it to 5 records and put it to the appropriate in splitted/ directories.
-#### functions for vad.cpp
+It used to remove silent form the audio dividing audio record with five digits in it to 5 records and put it to the appropriate in splitted/ directories.
+The silent is bits of program that have energy lower than first argument of the program.
+This energy counts in this function:
+    
+    double get_segment_energy(const std::vector<short> &data, int start, int end) {
+      double energy = 0;
+      for (int i = start; i < end; i++) {
+        energy += data[i] * data[i] / (end - start);
+      }
+      energy = sqrt(energy) / 32768;
+      return energy;
+    } 
+#### functions and methods ans classes for vad.cpp
     void print(const std::vector<T> &data, int limit = 0) {}
     void print_with_timeline(const std::vector<T> &data,
                              double single_duration,
