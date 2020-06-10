@@ -6,7 +6,6 @@
 #include <algorithm>
 #include <cmath>
 #include <fstream>
-//https://audiocoding.ru/articles/2008-05-22-wav-file-structure/
 using namespace std;
 
 enum COLORS {
@@ -246,22 +245,6 @@ void print_segments(const std::vector<Segment> &segments,
   std::cout << "Total duration: " << total_duration << ' ' << units_name << std::endl;
 }
 
-/*struct WavHeader {
-  char chunkId[4] = {'R', 'I', 'F', 'F'}; // 'RIFF'
-  unsigned int chunkSize; // file size - 8
-  char format[4] = {'W', 'A', 'V', 'E'}; // 'WAVE'
-  char subchunk1Id[4] = {'f', 'm', 't', ' '}; // 'fmt '
-  unsigned int subchunk1Size = 16; // 16 for 'pcm' format
-  unsigned short audioFormat = 1; // 1 for 'pcm' format
-  unsigned short numChannels = 1; // 1 for 'mono' format
-  unsigned int sampleRate;
-  unsigned int byteRate;
-  unsigned short blockAlign; //byte per sample (included all channels)
-  unsigned short bitsPerSample;
-  char subchunk2Id[4] = {'d', 'a', 't', 'a'}; // 'data'
-  unsigned int subchunk2Size; // byte (file size - 44)
-};*/
-
 WavHeader getHeader(int i, std::vector<short> data, const std::vector<Segment> segments, WavHeader header_entire, int segment_duration) {
   WavHeader header;
   strncpy(header.chunkId, "RIFF", 4);
@@ -305,17 +288,6 @@ int save_wav(int i, const std::vector<short> &data, const std::vector<Segment> &
   myfile.close();
   return 0;
 }
-
-
-/*soxi file.wav 
-input_stream.write(header)
-for ( ... )
-input_stream.write(data[i]) 
-std::ios::binary 
-head 0.wav -b 10 
-close() */
-
-
 
 std::vector<Segment> mask_compress(const std::vector<bool> &data) {
   std::vector<Segment> segments;
