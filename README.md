@@ -56,6 +56,15 @@ This energy counts in this function:
       energy = sqrt(energy) / 32768;
       return energy;
     } 
+#### What you need to use this program?
+For example you have L.opus you need to transfer it to wav mono-channel.
+For it doenload ffmpeg:
+    
+    sudo apt install ffmpeg
+Then:
+    
+    ffmpeg -i L.opus - ac 1 file.wav
+
 #### functions and methods ans classes for vad.cpp
     void print(const std::vector<T> &data, int limit = 0) {}
     void print_with_timeline(const std::vector<T> &data,
