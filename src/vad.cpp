@@ -123,12 +123,10 @@ struct WavHeader {
 
 
 int get_duration_samples(const WavHeader &header) {
-  //cout << "GET_DURATION_SAMPLES" << header.subchunk2Size << endl << header.blockAlign << endl;
   return header.subchunk2Size / header.blockAlign;
 }
 
 double get_duration_seconds(const WavHeader &header) {
-  //cout << "GET_DURATION_SECONDS" << get_duration_samples(header) << endl << header.sampleRate << endl;
   return get_duration_samples(header) / double(header.sampleRate);
 }
 
